@@ -33,7 +33,7 @@ int criaVetDesordenado (int vet[], int n, int tam) {
     int i;
 
     for (i = 0; i < tam; i++) {
-
+        vet[i] = rand() % (tam * 10);
     }
 }
 // 2.Criar vetor do tipo inteiro ordenado(tipos abstrados de dado, apenas a função que cria)
