@@ -24,62 +24,89 @@ O q fazer:
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #define TAM 1000000
+#define EXECUCOES 30
 
-// 1.Criar vetor do tipo inteiro desordonado
-
-int criaVetDesordenado (int vet[], int n, int tam) {
-    int i;
-
-    for (i = 0; i < tam; i++) {
-
+// 1. Criar vetor do tipo inteiro desordenado
+void criaVetDesordenado(int vet[], int tam) {
+    for (int i = 0; i < tam; i++) {
+        vet[i] = rand() % (TAM * 10);
     }
 }
+
 // 2.Criar vetor do tipo inteiro ordenado(tipos abstrados de dado, apenas a função que cria)
 
 // 3.Implementar Busca Sequencial
 
+int buscaSequencial (int vet[], int key) {
+    int i;
 
-// 4. Implementar Busca Binária
-int buscaBinaria(int vet[],int size,int chave){
-    int inicio = 0,fim = size-1;
-    while(inicio <= fim){
-        int meio = (inicio + fim)/2;
-        if(chave > vet[meio]){
-            inicio = meio+1;
-        }else if(chave < vet[meio]){
-            fim = meio-1;
-        }else{
+    for (i = 0; i < TAM; i++) {
+        if (key == vet[i]) {
             return 1;
         }
     }
     return 0;
 }
 
-// 5. Criar programa de geracao de valores aleatorios
 
-
-// 6. Criar programa que calcule o tempo de execucao
-
-// 7. Criar programa que calcule o desvio padrao
-float desvio_padrao (int vet[], int n) {
-    int i;
-    float media, desvio;
-    float soma1, soma2, sub = 0.0;
-
-    //calcula a media
-    for (i = 0; i < n; i++) {
-        soma1 = soma1 + vet[i];
+// 4. Implementar Busca Binária
+int buscaBinaria(int vet[], int size, int chave) {
+    int inicio = 0, fim = size - 1;
+    while (inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+        if (chave > vet[meio]) {
+            inicio = meio + 1;
+        } else if (chave < vet[meio]) {
+            fim = meio - 1;
+        } else {
+            return 1;
+        }
     }
-    media = soma1 / n;
+    return 0;
+}
 
-    //subtrai a media de cada valor e eleva ao quadrado
-    for (i = 0; i < n; i++) {
-        sub = vet[i] - media;
-        soma2 = soma2 + pow(sub, 2);
+// 5. Geracao de valores aleatorios
+int geraValorAleatorio(int vet[], int tam, int garantirEncontrado) {
+    if (garantirEncontrado) {
+        int pos = rand() % tam;
+        return vet[pos];
+    } else {
+        return rand() % (TAM * 10);
     }
+}
 
-    soma2 = soma2 / n;
-    return desvio = sqrt(soma2);
+// 6. Calcular tempo de execucao
+// Uso:
+//   struct timespec inicio, fim;
+//   clock_gettime(CLOCK_MONOTONIC, &inicio);
+//   ... codigo a medir ...
+//   clock_gettime(CLOCK_MONOTONIC, &fim);
+//   double t = calculaTempo(inicio, fim);
+
+double calculaTempo(struct timespec inicio, struct timespec fim) {
+    return (fim.tv_sec - inicio.tv_sec) +
+           (fim.tv_nsec - inicio.tv_nsec) / 1e9;
+}
+
+// 7. Calcular media
+double calculaMedia(double tempos[], int n) {
+    double soma = 0.0;
+    for (int i = 0; i < n; i++) {
+        soma += tempos[i];
+    }
+    return soma / n;
+}
+
+// 8. Calcular desvio padrao
+double desvioPadrao(double tempos[], int n) {
+    double media = calculaMedia(tempos, n);
+    double soma = 0.0;
+    for (int i = 0; i < n; i++) {
+        double diff = tempos[i] - media;
+        soma += diff * diff;
+    }
+    return sqrt(soma / n);
 }
