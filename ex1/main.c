@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "vetor.h" // Importante: inclui as assinaturas que você definiu
+#include "EX1.h" // Importante: inclui as assinaturas que você definiu
 
 #define TAM 1000000
 #define EXECUCOES 30
