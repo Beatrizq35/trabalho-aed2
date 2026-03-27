@@ -1,92 +1,88 @@
-<<<<<<< HEAD
-Onde fazemos os testes, calculamos o tempo e exibimos os resultados.
-
-srand(time(NULL)); // Configura a semente baseada no relógio atual
-=======
-// Chamada das funções
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "EX1.h"
+#include "vetor.h" // Importante: inclui as assinaturas que você definiu
 
+#define TAM 1000000
+#define EXECUCOES 30
 
-int main(){
-  srand(time(NULL)); //srand(gerar números aleatorios toda vez que rodar) e time(NULL)//Pega o tempo atual em segundos
-  / 2. Cria e preenche os vetores usando o TAD
-    Vetor *v_desordenado = cria_vetor(TAM);
-    Vetor *v_ordenado = cria_vetor(TAM);
-    
-    preenche_desordenado(v_desordenado);
-    preenche_ordenado(v_ordenado);
+int main() {
+    // 1. Inicializa a semente para números aleatórios
+    srand(time(NULL));
 
-    // Vetores para guardar os tempos de cada uma das 30 execuções
-    double tempos_sequencial[EXECUCOES];
-    double tempos_binaria[EXECUCOES];
+    // 2. Alocação dinâmica dos vetores (evita estouro de pilha/stack overflow)
+    int *v_desordenado = (int *)malloc(TAM * sizeof(int));
+    int *v_ordenado = (int *)malloc(TAM * sizeof(int));
 
-    printf("Executando buscas, aguarde...\n");
-
-    for (int i = 0; i < EXECUCOES; i++) {
-        int chave_seq, chave_bin;
-        struct timespec inicio, fim;
-
-        // Regra: 15 primeiros garantem que o valor existe, 15 últimos são aleatórios
-        int garantir = (i < 15);
-
-        // --- BUSCA SEQUENCIAL ---
-        if (garantir) 
-            chave_seq = busca_valor_por_indice(v_desordenado, rand() % TAM);
-        else 
-            chave_seq = rand() % (TAM * 10);
-
-        clock_gettime(CLOCK_MONOTONIC, &inicio);
-        busca_sequencial(v_desordenado, chave_seq);
-        clock_gettime(CLOCK_MONOTONIC, &fim);
-        tempos_sequencial[i] = calculaTempo(inicio, fim);
-
-        // --- BUSCA BINÁRIA ---
-        if (garantir) 
-            chave_bin = busca_valor_por_indice(v_ordenado, rand() % TAM);
-        else 
-            chave_bin = rand() % (TAM * 10);
-
-        clock_gettime(CLOCK_MONOTONIC, &inicio);
-        busca_binaria(v_ordenado, chave_bin);
-        clock_gettime(CLOCK_MONOTONIC, &fim);
-        tempos_binaria[i] = calculaTempo(inicio, fim);
+    if (v_desordenado == NULL || v_ordenado == NULL) {
+        printf("Erro ao alocar memória!\n");
+        return 1;
     }
 
-    // 3. Calcula e mostra os resultados finais
-    double media_seq = calculaMedia(tempos_sequencial, EXECUCOES);
-    double dp_seq = desvioPadrao(tempos_sequencial, EXECUCOES);
+    // 3. Preenchimento dos vetores
+    printf("Preenchendo vetores... Aguarde.\n");
+    criaVetDesordenado(v_desordenado, TAM);
+    criaVetOrdenado(v_ordenado, TAM);
 
-    double media_bin = calculaMedia(tempos_binaria, EXECUCOES);
-    double dp_bin = desvioPadrao(tempos_binaria, EXECUCOES);
+    // Arrays para armazenar os tempos de cada execução
+    double tempos_seq[EXECUCOES];
+    double tempos_bin[EXECUCOES];
 
-    printf("\n--- RESULTADOS BUSCA SEQUENCIAL ---\n");
-    printf("Media: %f segundos\n", media_seq);
-    printf("Desvio Padrao: %f segundos\n", dp_seq);
+    printf("Iniciando buscas (30 execuções para cada algoritmo)...\n");
 
-    printf("\n--- RESULTADOS BUSCA BINARIA ---\n");
-    printf("Media: %f segundos\n", media_bin);
-    printf("Desvio Padrao: %f segundos\n", dp_bin);
+    for (int i = 0; i < EXECUCOES; i++) {
+        struct timespec inicio, fim;
+        int chave;
 
-    // 4. Libera a memória (Importante para evitar Memory Leak!)
-    libera_vetor(v_desordenado);
-    libera_vetor(v_ordenado);
+        // Regra do trabalho: 15 buscas com valores que existem, 15 aleatórias
+        if (i < 15) {
+            // Sorteia uma posição e pega o valor que está nela (garante existência)
+            int pos_sorteada = rand() % TAM;
+            chave = v_desordenado[pos_sorteada]; 
+        } else {
+            // Gera um valor aleatório qualquer
+            chave = rand() % (TAM * 10);
+        }
+
+        // --- TESTE BUSCA SEQUENCIAL ---
+        clock_gettime(CLOCK_MONOTONIC, &inicio);
+        buscaSequencial(v_desordenado, chave);
+        clock_gettime(CLOCK_MONOTONIC, &fim);
+        tempos_seq[i] = calculaTempo(inicio, fim);
+
+        // --- TESTE BUSCA BINÁRIA ---
+        // Repetimos a lógica da chave para o vetor ordenado
+        if (i < 15) {
+            int pos_sorteada = rand() % TAM;
+            chave = v_ordenado[pos_sorteada];
+        } else {
+            chave = rand() % (TAM * 10);
+        }
+
+        clock_gettime(CLOCK_MONOTONIC, &inicio);
+        buscaBinaria(v_ordenado, chave);
+        clock_gettime(CLOCK_MONOTONIC, &fim);
+        tempos_bin[i] = calculaTempo(inicio, fim);
+    }
+
+    // 4. Cálculos Estatísticos
+    double media_seq = calculaMedia(tempos_seq, EXECUCOES);
+    double desvio_seq = desvioPadrao(tempos_seq, EXECUCOES);
+
+    double media_bin = calculaMedia(tempos_bin, EXECUCOES);
+    double desvio_bin = desvioPadrao(tempos_bin, EXECUCOES);
+
+    // 5. Exibição dos Resultados
+    printf("\n================ RESULTADOS ================\n");
+    printf("ALGORITMO         | MEDIA (s)    | DESVIO PADRAO\n");
+    printf("--------------------------------------------\n");
+    printf("Busca Sequencial  | %10.8f | %10.8f\n", media_seq, desvio_seq);
+    printf("Busca Binaria     | %10.8f | %10.8f\n", media_bin, desvio_bin);
+    printf("============================================\n");
+
+    // 6. Liberação de memória
+    free(v_desordenado);
+    free(v_ordenado);
 
     return 0;
 }
-  void criaVetDesordenado(vet[],tam);
-  void criaVetOrdenado(vet[],tam);
-  int buscaSequencial (vet[],key);
-  int buscaBinaria(vet[],size,chave);
-  int geraValorAleatorio(vet[],tam,garantirEncontrado);
-  double calculaTempo(struct timespec inicio, struct timespec fim);
-  double calculaMedia(double tempos[], int n);
-  double desvioPadrao(double tempos[], int n);
-  
-
-  
-}
-
->>>>>>> 48ed25be14970234792057b70a0a0c825067419c
