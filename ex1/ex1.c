@@ -33,13 +33,6 @@ O q fazer:
 void criaVetDesordenado(int vet[], int tam) {
     for (int i = 0; i < tam; i++) {
         vet[i] = rand() % (TAM * 10);
-// 1.Criar vetor do tipo inteiro desordonado
-
-int criaVetDesordenado (int vet[], int n, int tam) {
-    int i;
-
-    for (i = 0; i < tam; i++) {
-        vet[i] = rand() % (tam * 10);
     }
 }
 
@@ -52,10 +45,8 @@ void criaVetOrdenado(int vet[], int tam) {
     }
 }
 // 3.Implementar Busca Sequencial
-
 int buscaSequencial (int vet[], int key) {
     int i;
-
     for (i = 0; i < TAM; i++) {
         if (key == vet[i]) {
             return 1;
@@ -63,7 +54,6 @@ int buscaSequencial (int vet[], int key) {
     }
     return 0;
 }
-
 
 // 4. Implementar Busca Binária
 int buscaBinaria(int vet[], int size, int chave) {
@@ -91,14 +81,15 @@ int geraValorAleatorio(int vet[], int tam, int garantirEncontrado) {
     }
 }
 
-// 6. Calcular tempo de execucao
-// Uso:
-//   struct timespec inicio, fim;
-//   clock_gettime(CLOCK_MONOTONIC, &inicio);
-//   ... codigo a medir ...
-//   clock_gettime(CLOCK_MONOTONIC, &fim);
-//   double t = calculaTempo(inicio, fim);
-
+/*
+6. Calcular tempo de execucao
+Uso:
+- struct timespec inicio, fim;
+- clock_gettime(CLOCK_MONOTONIC, &inicio);
+- ... codigo a medir ...
+- clock_gettime(CLOCK_MONOTONIC, &fim);
+- double t = calculaTempo(inicio, fim);
+*/
 double calculaTempo(struct timespec inicio, struct timespec fim) {
     return (fim.tv_sec - inicio.tv_sec) +
            (fim.tv_nsec - inicio.tv_nsec) / 1e9;
