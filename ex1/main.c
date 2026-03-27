@@ -55,8 +55,10 @@ int main() {
         if (i < 15) {
             int pos_sorteada = rand() % TAM;
             chave = v_ordenado[pos_sorteada];
+            printf("[Execução %d] Buscando valor garantido: %d\n", i, chave);
         } else {
             chave = rand() % (TAM * 10);
+            printf("[Execução %d] Buscando valor aleatório: %d\n", i, chave);
         }
 
         clock_gettime(CLOCK_MONOTONIC, &inicio);
