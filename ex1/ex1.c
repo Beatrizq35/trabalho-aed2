@@ -37,7 +37,13 @@ int criaVetDesordenado (int vet[], int n, int tam) {
     }
 }
 // 2.Criar vetor do tipo inteiro ordenado(tipos abstrados de dado, apenas a função que cria)
-
+void criaVetOrdenado(int vet[], int tam) {
+    int atual = rand() % 10; // rand() : gera um número aleatorio dependendo da maquina de (32 mil a 2 milhões) %10 (divisão por 10 pegar o resto)
+    for (int i = 0; i < tam; i++) {
+        vet[i] = atual; // colocar o valor pego e acrescentar no vetor[i]
+        atual += (rand() % 5) + 1; // (atual = (rand()%5) +1) +  atual
+    }
+}
 // 3.Implementar Busca Sequencial
 
 
