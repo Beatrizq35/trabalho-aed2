@@ -15,10 +15,9 @@ O q fazer:
 2. Criar vetor do tipo inteiro Ordenado
 3. Implementar Busca Sequencial
 4. Implementar Busca Binária
-5. Criar programa de geracao de valores aleatorios
-6. Criar programa que calcule o tempo de execucao
-7. Criar programa que calcule a media entre as 30 execucoes
-8. Criar programa que calcule o desvio padrao
+5. Criar programa que calcule o tempo de execucao
+6. Criar programa que calcule a media entre as 30 execucoes
+7. Criar programa que calcule o desvio padrao
 */
 
 #include <stdio.h>
@@ -56,13 +55,13 @@ int buscaSequencial (int vet[], int key) {
 }
 
 // 4. Implementar Busca Binária
-int buscaBinaria(int vet[], int size, int chave) {
-    int inicio = 0, fim = size - 1;
+int buscaBinaria(int vet[], int key) {
+    int inicio = 0, fim = TAM - 1;
     while (inicio <= fim) {
         int meio = (inicio + fim) / 2;
-        if (chave > vet[meio]) {
+        if (key > vet[meio]) {
             inicio = meio + 1;
-        } else if (chave < vet[meio]) {
+        } else if (key < vet[meio]) {
             fim = meio - 1;
         } else {
             return 1;
@@ -71,18 +70,8 @@ int buscaBinaria(int vet[], int size, int chave) {
     return 0;
 }
 
-// 5. Geracao de valores aleatorios
-int geraValorAleatorio(int vet[], int tam, int garantirEncontrado) {
-    if (garantirEncontrado) {
-        int pos = rand() % tam;
-        return vet[pos];
-    } else {
-        return rand() % (TAM * 10);
-    }
-}
-
 /*
-6. Calcular tempo de execucao
+5. Calcular tempo de execucao
 Uso:
 - struct timespec inicio, fim;
 - clock_gettime(CLOCK_MONOTONIC, &inicio);
@@ -95,7 +84,7 @@ double calculaTempo(struct timespec inicio, struct timespec fim) {
            (fim.tv_nsec - inicio.tv_nsec) / 1e9;
 }
 
-// 7. Calcular media
+// 6. Calcular media
 double calculaMedia(double tempos[], int n) {
     double soma = 0.0;
     for (int i = 0; i < n; i++) {
@@ -104,7 +93,7 @@ double calculaMedia(double tempos[], int n) {
     return soma / n;
 }
 
-// 8. Calcular desvio padrao
+// 7. Calcular desvio padrao
 double desvioPadrao(double tempos[], int n) {
     double media = calculaMedia(tempos, n);
     double soma = 0.0;
