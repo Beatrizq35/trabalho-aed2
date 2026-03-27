@@ -27,7 +27,7 @@ O q fazer:
 
 #define TAM 1000000
 
-// 1.Criar vetor do tipo inteiro
+// 1.Criar vetor do tipo inteiro desordonado
 
 int criaVetDesordenado (int vet[], int n, int tam) {
     int i;
@@ -36,11 +36,13 @@ int criaVetDesordenado (int vet[], int n, int tam) {
 
     }
 }
+// 2.Criar vetor do tipo inteiro ordenado(tipos abstrados de dado, apenas a função que cria)
 
-// 2. Implementar Busca Sequencial
+//3.Implementar Busca Sequencial
 
 // 3. Implementar Busca Binária
 
+// 4. Implementar Busca Binária
 int buscaBinaria(int vet[],int size,int chave){
     int inicio = 0,fim = size-1;
     while(inicio <= fim){
@@ -56,7 +58,6 @@ int buscaBinaria(int vet[],int size,int chave){
     return 0;
 }
 
-// 4. Implementar Busca Binária
 
 
 // 7. Criar programa que calcule o desvio padrao
@@ -79,18 +80,4 @@ float desvio_padrao (int vet[], int n) {
 
     soma2 = soma2 / n;
     return desvio = sqrt(soma2);
-}
-
-
-// Declarando fora da main para evitar estouro de pilha (stack overflow)
-int vetor[TAM];
-
-void preencherVetor(int v[], int tamanho) {
-    // srand define a "semente" do gerador baseada no tempo atual
-    srand(time(NULL)); 
-
-    for (int i = 0; i < tamanho; i++) {
-        // rand() % 100 gera de 0 a 99. Somamos 1 para ficar de 1 a 100.
-        v[i] = (rand() % 100) + 1;
-    }
 }
