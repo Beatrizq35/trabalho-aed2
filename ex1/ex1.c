@@ -33,6 +33,13 @@ O q fazer:
 void criaVetDesordenado(int vet[], int tam) {
     for (int i = 0; i < tam; i++) {
         vet[i] = rand() % (TAM * 10);
+// 1.Criar vetor do tipo inteiro desordonado
+
+int criaVetDesordenado (int vet[], int n, int tam) {
+    int i;
+
+    for (i = 0; i < tam; i++) {
+        vet[i] = rand() % (tam * 10);
     }
 }
 
