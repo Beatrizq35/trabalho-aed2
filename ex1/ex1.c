@@ -12,17 +12,53 @@ cada algoritmo.
 
 O q fazer:
 
-- Criar vetor do tipo inteiro
-- Implementar Busca Sequencial
-- Implementar Busca Binária
-- Criar programa de geracao de valores aleatorios
-- Criar programa que calcule o tempo de execucao
-- Criar programa que calcule a media entre as 30 execucoes
-- Criar programa que calcule o desvio padrao
+1.Criar vetor do tipo inteiro
+2.Implementar Busca Sequencial
+3.Implementar Busca Binária
+4.Criar programa de geracao de valores aleatorios
+5.Criar programa que calcule o tempo de execucao
+6.Criar programa que calcule a media entre as 30 execucoes
+7.Criar programa que calcule o desvio padrao
 */
 
 #ind
+//3.Implementar Busca Binária
+// BEGIN
+int buscaBinaria(int vet[],int size,int chave){
+    int inicio = 0,fim = size-1;
+    while(inicio <= fim){
+        int meio = (inicio + fim)/2;
+        if(chave > vet[meio]){
+            inicio = meio+1;
+        }else if(chave < vet[meio]){
+            fim = meio-1;
+        }else{
+            return 1;
+        }
+    }
+    return 0;
+}
+// END
 
+void ler(int *v, int size) {
+    for (int i = 0; i < size; i++)
+        scanf("%d%*c", &v[i]);
+}
+
+int main() {
+    int chave;
+    int size;
+    scanf("%d%*c",&chave);
+    scanf("%u%*c",&size); // tamanho do vetor
+    int vet[size];
+    ler(vet,size);
+    if (buscaBinaria(vet, size, chave)) {
+        printf("SIM");
+    } else {
+        printf("NAO");
+    }
+}
+//7.Criar programa que calcule o desvio padrao
 float desvio_padrao (int vet[], int n) {
     int i;
     float media, desvio;
