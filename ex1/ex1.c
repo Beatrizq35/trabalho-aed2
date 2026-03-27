@@ -42,6 +42,53 @@ O q fazer:
 */
 
 #ind
+1.
+1.2
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAMANHO 1000000
+
+void gerarVetorOrdenado(int *vet, int size) {
+    // Usamos long para evitar overflow durante a geração se os números crescerem muito
+    long long atual = rand() % 50; 
+    
+    for (int i = 0; i < size; i++) {
+        vet[i] = (int)atual;
+        // Incremento entre 1 e 10. Como o mínimo é 1, NUNCA haverá repetidos.
+        atual += (rand() % 10) + 1; 
+    }
+}
+
+int main() {
+    // Alocação dinâmica é necessária para 1 milhão de itens (evita estouro de pilha/stack overflow)
+    int *vet = (int *)malloc(TAMANHO * sizeof(int));
+    
+    if (vet == NULL) {
+        printf("Erro de memória!\n");
+        return 1;
+    }
+
+    srand(time(NULL));
+
+    printf("Gerando 1.000.000 de valores...\n");
+    gerarVetorOrdenado(vet, TAMANHO);
+
+    // Teste: Imprimir os 10 primeiros e os 10 últimos
+    printf("Primeiros 5: ");
+    for(int i = 0; i < 5; i++) printf("%d ", vet[i]);
+    
+    printf("\nUltimos 5: ");
+    for(int i = TAMANHO-5; i < TAMANHO; i++) printf("%d ", vet[i]);
+    
+    printf("\n\nSucesso! Vetor pronto para busca binaria.\n");
+
+    // Lembre-se de liberar a memória no final
+    free(vet);
+    return 0;
+}
 //3.Implementar Busca Binária
 // BEGIN
 int buscaBinaria(int vet[],int size,int chave){
