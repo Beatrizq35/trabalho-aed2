@@ -38,9 +38,8 @@ int criaVetDesordenado (int vet[], int n, int tam) {
 }
 // 2.Criar vetor do tipo inteiro ordenado(tipos abstrados de dado, apenas a função que cria)
 
-//3.Implementar Busca Sequencial
+// 3.Implementar Busca Sequencial
 
-// 3. Implementar Busca Binária
 
 // 4. Implementar Busca Binária
 int buscaBinaria(int vet[],int size,int chave){
@@ -58,7 +57,10 @@ int buscaBinaria(int vet[],int size,int chave){
     return 0;
 }
 
+// 5. Criar programa de geracao de valores aleatorios
 
+
+// 6. Criar programa que calcule o tempo de execucao
 
 // 7. Criar programa que calcule o desvio padrao
 float desvio_padrao (int vet[], int n) {
