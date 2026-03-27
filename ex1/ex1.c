@@ -9,41 +9,38 @@ encontrado no vetor) e nas outras 15 execuções gere valores aleatórios para a
 cada busca, a média entre as 30 execuções e o desvio padrão dos tempos de execução para
 cada algoritmo.
 
-
 O q fazer:
 
-<<<<<<< HEAD
-- Criar vetor do tipo inteiro
-- Implementar Busca Sequencial
-- Implementar Busca Binária
-- Criar programa de geracao de valores aleatorios
-- Criar programa que calcule o tempo de execucao
-- Criar programa que calcule a media entre as 30 execucoes
-- Criar programa que calcule o desvio padrao.  (OK)
+1. Criar vetor do tipo inteiro Desordenado
+2. Criar vetor do tipo inteiro Ordenado
+3. Implementar Busca Sequencial
+4. Implementar Busca Binária
+5. Criar programa de geracao de valores aleatorios
+6. Criar programa que calcule o tempo de execucao
+7. Criar programa que calcule a media entre as 30 execucoes
+8. Criar programa que calcule o desvio padrao
 */
 
-#include <stdio.h> 
-#include <math.h>
-#include "EX1.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-// 1. Criar vetor
+#define TAM 1000000
 
-// 2. 
+// 1.Criar vetor do tipo inteiro
 
-// Desvio
-=======
-1.Criar vetor do tipo inteiro
-2.Implementar Busca Sequencial
-3.Implementar Busca Binária
-4.Criar programa de geracao de valores aleatorios
-5.Criar programa que calcule o tempo de execucao
-6.Criar programa que calcule a media entre as 30 execucoes
-7.Criar programa que calcule o desvio padrao
-*/
+int criaVetDesordenado (int vet[], int n, int tam) {
+    int i;
 
-#ind
-//3.Implementar Busca Binária
-// BEGIN
+    for (i = 0; i < tam; i++) {
+
+    }
+}
+
+// 2. Implementar Busca Sequencial
+
+// 3. Implementar Busca Binária
+
 int buscaBinaria(int vet[],int size,int chave){
     int inicio = 0,fim = size-1;
     while(inicio <= fim){
@@ -58,28 +55,11 @@ int buscaBinaria(int vet[],int size,int chave){
     }
     return 0;
 }
-// END
 
-void ler(int *v, int size) {
-    for (int i = 0; i < size; i++)
-        scanf("%d%*c", &v[i]);
-}
+// 4. Implementar Busca Binária
 
-int main() {
-    int chave;
-    int size;
-    scanf("%d%*c",&chave);
-    scanf("%u%*c",&size); // tamanho do vetor
-    int vet[size];
-    ler(vet,size);
-    if (buscaBinaria(vet, size, chave)) {
-        printf("SIM");
-    } else {
-        printf("NAO");
-    }
-}
-//7.Criar programa que calcule o desvio padrao
->>>>>>> bd1385abe04201444cf42112580b487337f60382
+
+// 7. Criar programa que calcule o desvio padrao
 float desvio_padrao (int vet[], int n) {
     int i;
     float media, desvio;
@@ -97,10 +77,20 @@ float desvio_padrao (int vet[], int n) {
         soma2 = soma2 + pow(sub, 2);
     }
 
-<<<<<<< HEAD
     soma2 = soma2 / n;
     return desvio = sqrt(soma2);
 }
-=======
+
+
+// Declarando fora da main para evitar estouro de pilha (stack overflow)
+int vetor[TAM];
+
+void preencherVetor(int v[], int tamanho) {
+    // srand define a "semente" do gerador baseada no tempo atual
+    srand(time(NULL)); 
+
+    for (int i = 0; i < tamanho; i++) {
+        // rand() % 100 gera de 0 a 99. Somamos 1 para ficar de 1 a 100.
+        v[i] = (rand() % 100) + 1;
+    }
 }
->>>>>>> bd1385abe04201444cf42112580b487337f60382
