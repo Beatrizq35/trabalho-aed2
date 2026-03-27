@@ -18,11 +18,18 @@ O q fazer:
 - Criar programa de geracao de valores aleatorios
 - Criar programa que calcule o tempo de execucao
 - Criar programa que calcule a media entre as 30 execucoes
-- Criar programa que calcule o desvio padrao
+- Criar programa que calcule o desvio padrao.  (OK)
 */
 
-#ind
+#include <stdio.h> 
+#include <math.h>
+#include "EX1.h"
 
+// 1. Criar vetor
+
+// 2. 
+
+// Desvio
 float desvio_padrao (int vet[], int n) {
     int i;
     float media, desvio;
@@ -37,7 +44,9 @@ float desvio_padrao (int vet[], int n) {
     //subtrai a media de cada valor e eleva ao quadrado
     for (i = 0; i < n; i++) {
         sub = vet[i] - media;
-        soma2 = soma2 + (sub)
+        soma2 = soma2 + pow(sub, 2);
     }
 
+    soma2 = soma2 / n;
+    return desvio = sqrt(soma2);
 }
