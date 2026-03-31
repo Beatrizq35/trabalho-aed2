@@ -1,5 +1,5 @@
 /*
-Primeiro codigo feito pra o main
+Primeiro codigo feito pra o main, sem a questão 2 
 */
 #include <stdio.h>
 #include <stdlib.h>
