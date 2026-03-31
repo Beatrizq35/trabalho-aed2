@@ -1,3 +1,7 @@
+/*
+TESTAR ESSE CÓDIGO JUNTO COM A QUESTÃO E E DEPOIS TESTAR COM A QUESTÃO 2
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
